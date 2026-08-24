@@ -1,0 +1,74 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Hero from "../components/Hero.astro";
+import HowSection from "../components/HowSection.astro";
+import CoursesSection from "../components/CoursesSection.astro";
+import WikiCallout from "../components/WikiCallout.astro";
+import Footer from "../components/Footer.astro";
+import { COURSES } from "../content/courses";
+import translations from "../content/translations.js";
+
+export function getStaticPaths() {
+    return [
+        { params: { lang: undefined }, props: { lang: "it" } },
+        { params: { lang: "en" }, props: { lang: "en" } },
+    ];
+}
+
+interface Props {
+    lang: string;
+}
+
+const { lang = "it" } = Astro.props;
+const language = (lang || "it") as "it" | "en";
+const t = translations[language] || translations.it;
+
+// Filter courses
+const bachelorCourses = COURSES.filter((c) => c.type === "bachelor");
+const masterCourses = COURSES.filter((c) => c.type === "master");
+---
+
+<MainLayout language={language}>
+    <!-- Hero Section -->
+    <Hero
+        academicYear={t.academicYear}
+        title={t.title}
+        lead={t.lead}
+        chooseText={t.choose}
+    />
+
+    <!-- How Section (WhatsApp & Telegram) -->
+    <HowSection
+        title={t.howTitle}
+        waText={t.waText}
+        tgText={t.tgText}
+        scrollInvitationText={t.scrollInvitationText}
+    />
+    <!-- Courses Section -->
+    <CoursesSection
+        bachelorLabel={t.findLabel}
+        bachelorTitle={t.bachelors}
+        bachelorCount={bachelorCourses.length}
+        bachelorCourses={bachelorCourses}
+        masterLabel={t.continueLabel}
+        masterTitle={t.masters}
+        masterCount={masterCourses.length}
+        masterCourses={masterCourses}
+        language={language}
+    />
+
+    <!-- Wiki Callout Section -->
+    <WikiCallout
+        notOnly={t.notOnly}
+        title={t.wikiTitle}
+        text={t.wikiText}
+        cta={t.openWiki}
+    />
+
+    <Footer
+        text={t.footer}
+        goUp={t.goUp}
+        copyrightNotice={t.copyrightNotice}
+        slot="footer"
+    />
+</MainLayout>

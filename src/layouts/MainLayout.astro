@@ -1,0 +1,189 @@
+---
+import "../assets/global.css";
+import { Image } from "astro:assets";
+import ssnLogo from "../assets/ssn-logo.png";
+import LanguageToggle from "../components/LanguageToggle.astro";
+
+interface Props {
+    language: string;
+}
+
+const { language } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const itHref = `${base}/` || '/';
+const enHref = `${base}/en`;
+---
+
+<!doctype html>
+<html lang={language} class="scroll-smooth">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#090b10" />
+        <meta
+            name="description"
+            content="Gruppi matricole 2026/2027 del Dipartimento di Informatica — Sapienza Students Network"
+        />
+
+        <meta
+            property="og:title"
+            content="Matricole 2026/2027 · Sapienza Students Network"
+        />
+        <meta
+            property="og:description"
+            content="Trova i gruppi WhatsApp e Telegram e la wiki del tuo corso di laurea."
+        />
+        <meta property="og:type" content="website" />
+        <meta
+            property="og:image"
+            content="https://26-27.sapienzastudents.net/ssn-logo.png"
+        />
+
+        <link rel="icon" type="image/png" href={`${base}/ssn-crest.png`} />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+            rel="stylesheet"
+        />
+
+        <title>
+            {
+                language === "it"
+                    ? "Matricole 2026/2027 · Sapienza Students Network"
+                    : "Freshmen 2026/2027 · Sapienza Students Network"
+            }
+        </title>
+
+        <script is:inline define:vars={{ base, itHref, enHref }}>
+            (function () {
+                var path = window.location.pathname;
+                var normalizedPath = base && path.startsWith(base) ? path.slice(base.length) : path;
+                var isEn = normalizedPath.startsWith("/en");
+                var params = new URLSearchParams(window.location.search);
+                var langParam = params.get("lang");
+                if (langParam === "en" && !isEn) {
+                    try {
+                        localStorage.setItem("ssn-lang", "en");
+                    } catch (e) {}
+                    window.location.replace(enHref);
+                    return;
+                }
+                if (langParam === "it" && isEn) {
+                    try {
+                        localStorage.setItem("ssn-lang", "it");
+                    } catch (e) {}
+                    window.location.replace(itHref);
+                    return;
+                }
+                try {
+                    if (isEn) {
+                        localStorage.setItem("ssn-lang", "en");
+                    } else {
+                        localStorage.setItem("ssn-lang", "it");
+                    }
+                } catch (e) {}
+            })();
+        </script>
+    </head>
+    <body class="min-w-[300px] bg-base-100 text-base-content font-sans">
+        <!-- Skip link for accessibility -->
+        <a
+            href="#courses"
+            class="skip-link btn fixed left-4 top-[-5rem] focus:top-4 z-50 bg-white text-black text-[16px] border-0 transition-all duration-200"
+        >
+            {language === "it" ? "Vai ai corsi" : "Go to degree programmes"}
+        </a>
+
+        <!-- Top bar -->
+        <header
+            class="topbar max-w-[1180px] mx-auto px-5 py-4.5 flex justify-between items-center"
+        >
+            <a
+                class="brand flex items-center gap-2.5 no-underline text-base-content"
+                href="https://sapienzastudents.net"
+                aria-label="Sapienza Students Network"
+            >
+                <Image
+                    src={ssnLogo}
+                    alt=""
+                    width={52}
+                    height={52}
+                    class="object-contain"
+                />
+                <span class="ml-2 flex flex-col leading-[1.05] font-heading">
+                    <strong class="text-[18px]">Sapienza Students</strong>
+                    <small
+                        class="mt-2 text-[13px] text-secondary font-medium uppercase tracking-[0.18em]"
+                        >Network</small
+                    >
+                </span>
+            </a>
+            <div class="lang">
+                <LanguageToggle language={language} />
+            </div>
+        </header>
+
+        <main id="main-content">
+            <slot />
+        </main>
+
+        <slot name="footer" />
+
+        <!-- Desktop Scroll to Top FAB -->
+        <a
+            href="#"
+            id="scroll-to-top-fab"
+            class="hidden md:inline-flex fixed bottom-8 right-8 z-40 w-12 h-12 items-center justify-center rounded-full bg-base-200/95 hover:bg-base-300 text-base-content border border-primary/20 hover:border-primary/40 shadow-[0_4px_16px_color-mix(in_srgb,var(--color-primary)_12%,transparent)] hover:shadow-[0_4px_20px_color-mix(in_srgb,var(--color-primary)_22%,transparent)] backdrop-blur opacity-0 pointer-events-none translate-y-3 transition-all duration-300 hover:-translate-y-1 active:scale-95"
+            aria-label={language === "it" ? "Torna su" : "Back to top"}
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="w-5.5 h-5.5"
+                aria-hidden="true"
+            >
+                <path
+                    fill-rule="evenodd"
+                    d="M11.47 2.47a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 1 1-1.06 1.06l-6.22-6.22V21a.75.75 0 0 1-1.5 0V4.81l-6.22 6.22a.75.75 0 1 1-1.06-1.06l7.5-7.5Z"
+                    clip-rule="evenodd"></path>
+            </svg>
+        </a>
+
+        <script is:inline>
+            (function () {
+                var fab = document.getElementById("scroll-to-top-fab");
+                if (!fab) return;
+                var toggle = function () {
+                    if (window.scrollY > 350) {
+                        fab.classList.remove(
+                            "opacity-0",
+                            "pointer-events-none",
+                            "translate-y-3",
+                        );
+                        fab.classList.add(
+                            "opacity-100",
+                            "pointer-events-auto",
+                            "translate-y-0",
+                        );
+                    } else {
+                        fab.classList.remove(
+                            "opacity-100",
+                            "pointer-events-auto",
+                            "translate-y-0",
+                        );
+                        fab.classList.add(
+                            "opacity-0",
+                            "pointer-events-none",
+                            "translate-y-3",
+                        );
+                    }
+                };
+                window.addEventListener("scroll", toggle, { passive: true });
+                toggle();
+            })();
+        </script>
+    </body>
+</html>

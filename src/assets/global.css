@@ -1,0 +1,195 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@theme {
+  --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-heading: 'IBM Plex Sans', system-ui, sans-serif;
+
+  /* ==========================================================================
+     Course Subject Colors
+     ========================================================================== */
+  --color-subject-burgundy: #6d3438; /* ACSAI (Applied Computer Science & AI) */
+  --color-subject-navy: #23395b;     /* Informatica Triennale (A-L & M-Z) */
+  --color-subject-petrol: #1f3d4d;   /* Informatica Triennale (a distanza / online) */
+  --color-subject-forest: #3b4c3b;   /* Computer Science (Magistrale) */
+  --color-subject-olive: #5d5635;    /* Cybersecurity (Magistrale) */
+  --color-subject-plum: #4b365f;     /* Data Science (Magistrale) */
+
+  /* ==========================================================================
+     Platform Brand Colors
+     ========================================================================== */
+  --color-brand-whatsapp: #20bb68;       /* WhatsApp official green badge & accent */
+  --color-brand-whatsapp-text: #8ff0b7;  /* WhatsApp button text (mint light) */
+  --color-brand-telegram: #38a9e6;       /* Telegram official blue badge & accent */
+  --color-brand-telegram-text: #86d7ff;  /* Telegram button text (sky light) */
+
+  /* ==========================================================================
+     Surfaces & Card Backgrounds
+     ========================================================================== */
+  --color-surface-card: #10131a;         /* Dark card background & gradient end */
+  --color-surface-card-start: #171b24;   /* Gradient start for HowSection cards */
+  --color-surface-btn: #171b23;          /* Dark button background (Wiki action) */
+  --color-surface-btn-mix: #151922;      /* Button mix base for social action buttons */
+  --color-surface-btn-border: #272c37;   /* Button border mix base */
+  --color-surface-disabled: #14171f;     /* Disabled button surface */
+  --color-surface-light: #cbd1db;        /* Light silver background for Wiki callout */
+  --color-surface-btn-light: #f5f6f8;    /* Off-white CTA button background */
+
+  /* ==========================================================================
+     Typography & Text Shades
+     ========================================================================== */
+  --color-text-dim: #cbd1db;             /* Primary muted silver-gray body/lead text */
+  --color-text-bright: #e9ebef;          /* High-contrast brand / header text */
+  --color-text-button: #d1d6df;          /* Neutral action button text */
+  --color-text-dark: #10130c;            /* Dark headings on light Wiki callout */
+  --color-text-dark-muted: #2a323d;      /* Dark body copy on light Wiki callout */
+  --color-text-dark-cta: #101217;        /* Dark text on light CTA jump button */
+
+  /* ==========================================================================
+     Borders & Separators
+     ========================================================================== */
+  --color-border-subtle: #777788;        /* Subtle slate border mixing color */
+}
+
+:root {
+  /* Course Subjects */
+  --color-subject-burgundy: #6d3438;
+  --color-subject-navy: #23395b;
+  --color-subject-petrol: #1f3d4d;
+  --color-subject-forest: #3b4c3b;
+  --color-subject-olive: #5d5635;
+  --color-subject-plum: #4b365f;
+
+  /* Brands */
+  --color-brand-whatsapp: #20bb68;
+  --color-brand-whatsapp-text: #8ff0b7;
+  --color-brand-telegram: #38a9e6;
+  --color-brand-telegram-text: #86d7ff;
+
+  /* Surfaces */
+  --color-surface-card: #10131a;
+  --color-surface-card-start: #171b24;
+  --color-surface-btn: #171b23;
+  --color-surface-btn-mix: #151922;
+  --color-surface-btn-border: #272c37;
+  --color-surface-disabled: #14171f;
+  --color-surface-light: #cbd1db;
+  --color-surface-btn-light: #f5f6f8;
+
+  /* Text */
+  --color-text-dim: #cbd1db;
+  --color-text-bright: #e9ebef;
+  --color-text-button: #d1d6df;
+  --color-text-dark: #10130c;
+  --color-text-dark-muted: #2a323d;
+  --color-text-dark-cta: #101217;
+
+  /* Borders */
+  --color-border-subtle: #777788;
+}
+
+@plugin "daisyui/theme" {
+  name: "studentNavyDark";
+  default: true;
+  prefersdark: true;
+  color-scheme: dark;
+
+  --color-base-100: oklch(18% 0.035 255);
+  --color-base-200: oklch(22% 0.04 255);
+  --color-base-300: oklch(28% 0.045 255);
+  --color-base-content: oklch(93% 0.015 240);
+
+  --color-primary: oklch(75% 0.16 230);
+  --color-primary-content: oklch(18% 0.04 230);
+
+  --color-secondary: oklch(80% 0.095 240);
+  --color-secondary-content: oklch(18% 0.035 255);
+
+  --color-accent: oklch(78% 0.14 175);
+  --color-accent-content: oklch(18% 0.04 175);
+
+  --color-neutral: oklch(26% 0.035 255);
+  --color-neutral-content: oklch(92% 0.01 240);
+
+  --color-info: oklch(72% 0.15 240);
+  --color-info-content: oklch(15% 0.03 240);
+
+  --color-success: oklch(75% 0.17 150);
+  --color-success-content: oklch(15% 0.04 150);
+
+  --color-warning: oklch(82% 0.16 85);
+  --color-warning-content: oklch(20% 0.05 85);
+
+  --color-error: oklch(68% 0.22 25);
+  --color-error-content: oklch(98% 0.01 25);
+
+  --radius-selector: 0.5rem;
+  --radius-field: 0.375rem;
+  --radius-box: 0.75rem;
+
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
+
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--color-base-100);
+  background-image: radial-gradient(
+    circle at 75% 2.5%,
+    color-mix(in srgb, var(--color-accent) 15%, transparent) 0%,
+    transparent 60vw
+  );
+  background-repeat: no-repeat;
+}
+
+.hero-section h1 em,
+.hero h1 em {
+  font-style: normal;
+  display: inline-block;
+  padding-bottom: 0.15em;
+  margin-bottom: -0.15em;
+  background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.course-card {
+  container-type: inline-size;
+  transition: border-color 0.2s ease;
+}
+
+.course-card:hover {
+  border-color: color-mix(in srgb, var(--color-subject) 55%, white 45%) !important;
+}
+
+.name-compact {
+  display: none;
+}
+
+.security-word {
+  display: inline;
+}
+
+@container (max-width: 340px) {
+  .security-word {
+    display: block;
+    white-space: nowrap;
+  }
+}
+
+@container (max-width: 290px) {
+  .name-full {
+    display: none;
+  }
+  .name-compact {
+    display: inline;
+  }
+}

@@ -1,0 +1,16 @@
+:80 {
+    root * /usr/share/caddy
+    file_server
+
+    # Modern compression
+    encode zstd gzip
+
+    # Long-term caching for immutable Astro assets
+    @static {
+        path /_astro/*
+    }
+    header @static Cache-Control "public, max-age=31536000, immutable"
+
+    # Static file resolution with fallback
+    try_files {path} {path}/ /index.html
+}

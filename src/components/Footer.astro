@@ -1,0 +1,68 @@
+---
+import { Image } from "astro:assets";
+import ssnLogo from "../assets/ssn-logo.png";
+
+interface Props {
+    text: string;
+    goUp?: string;
+    copyrightNotice: string;
+}
+
+const { text, goUp = "Vai su", copyrightNotice } = Astro.props;
+---
+
+<footer
+    class="bg-neutral/30 border-t border-base-300 px-5 py-9 text-[15px] text-text-dim"
+>
+    <div
+        class="max-w-[1120px] mx-auto flex flex-col items-center text-center gap-3"
+    >
+        <!-- Small screen go up button on top -->
+        <a
+            href="#"
+            class="md:hidden inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-base-200 border border-base-300 rounded-full text-text-bright text-xs font-bold no-underline hover:bg-base-300 transition-colors mb-2"
+            aria-label={goUp}
+        >
+            <span>{goUp}</span>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="w-3.5 h-3.5"
+                aria-hidden="true"
+            >
+                <path
+                    fill-rule="evenodd"
+                    d="M11.47 2.47a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 1 1-1.06 1.06l-6.22-6.22V21a.75.75 0 0 1-1.5 0V4.81l-6.22 6.22a.75.75 0 1 1-1.06-1.06l7.5-7.5Z"
+                    clip-rule="evenodd"></path>
+            </svg>
+        </a>
+
+        <!-- Logo + Title -->
+        <a
+            href="https://sapienzastudents.net"
+            class="inline-flex items-center gap-2.5 text-text-bright font-bold text-[17px] no-underline hover:opacity-85 transition-opacity"
+            aria-label="Sapienza Students Network"
+        >
+            <Image
+                src={ssnLogo}
+                alt=""
+                width={38}
+                height={38}
+                class="object-contain"
+            />
+            <span class="mr-5">Sapienza Students Network</span>
+        </a>
+
+        <!-- Subtitle Description -->
+        <p
+            class="m-0 font-medium text-text-dim max-w-[500px]"
+            set:html={text}
+        />
+
+        <!-- Footer text and copyright notice -->
+        <div class="text-s font-semibold text-text-dim/80 mt-0.5">
+            <span>{copyrightNotice}</span>
+        </div>
+    </div>
+</footer>

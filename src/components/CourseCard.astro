@@ -1,0 +1,137 @@
+---
+import { Image } from 'astro:assets';
+import ssnCrest from '../assets/ssn-crest.png';
+import WhatsAppIcon from '../components/icons/WhatsApp.astro';
+import TelegramIcon from '../components/icons/Telegram.astro';
+import WikiIcon from '../components/icons/Wiki.astro';
+import translations from '../content/translations.js';
+
+interface Props {
+  course: {
+    id: string;
+    color: string;
+    name: string;
+    full: Record<string, string>;
+    crest: string;
+    whatsapp?: string;
+    telegram?: string;
+    wiki: string;
+  };
+  language: string;
+}
+
+const { course, language } = Astro.props;
+const t = translations[language as 'it' | 'en'] || translations.it;
+
+const hasWhatsapp = !!course.whatsapp;
+const hasTelegram = !!course.telegram;
+
+// Map course IDs to subject CSS theme variables
+const subjectColorMap: Record<string, string> = {
+  'acsai': 'var(--color-subject-burgundy)',
+  'info-al': 'var(--color-subject-navy)',
+  'info-mz': 'var(--color-subject-navy)',
+  'info-distance': 'var(--color-subject-petrol)',
+  'compsci': 'var(--color-subject-forest)',
+  'cybersec': 'var(--color-subject-olive)',
+  'datasci': 'var(--color-subject-plum)',
+};
+
+const subjectColor = subjectColorMap[course.id] || 'var(--color-subject-navy)';
+
+// Special formatting for course names on narrow cards
+function getCourseName(courseId: string, courseName: string) {
+  if (courseId === 'compsci') {
+    return `<span class="name-full">${courseName}</span><span class="name-compact">Comp.<br />Science</span>`;
+  }
+  if (courseId === 'cybersec') {
+    return `Cyber<span class="security-word">security</span>`;
+  }
+  return courseName;
+}
+---
+
+<article 
+  class="course-card rounded-[20px] overflow-hidden bg-surface-card"
+  style={`--color-subject: ${subjectColor}; border: 1px solid color-mix(in srgb, var(--color-subject) 66%, var(--color-border-subtle) 34%)`}
+>
+  <div>
+    <!-- Header with gradient background using subject color variable -->
+    <div 
+      class="relative min-h-[168px] max-[760px]:min-h-[148px] p-6 max-[760px]:p-5 flex items-center gap-[18px] max-[410px]:gap-3 overflow-hidden"
+      style={`background: linear-gradient(135deg, color-mix(in srgb, var(--color-subject) 88%, black 12%), var(--color-subject))`}
+    >
+      <!-- Decorative circle -->
+      <div class="absolute w-[180px] h-[180px] border border-white/15 rounded-full right-[-75px] top-[-90px] pointer-events-none"></div>
+      
+      <!-- Crest -->
+      <div class="relative flex-shrink-0 w-[72px] h-[82px] grid place-items-center max-[410px]:scale-[0.88] max-[410px]:-ml-1.5">
+        <Image 
+          src={ssnCrest} 
+          alt="" 
+          width={72}
+          height={82}
+          class="w-[72px] h-[82px] object-contain invert brightness-0 opacity-90"
+        />
+      </div>
+      
+      <!-- Course info -->
+      <div class="min-w-0">
+        <p class="text-[12px] uppercase tracking-[0.12em] text-white/75 mb-1.5 font-medium">
+          {course.full[language] || course.full.it}
+        </p>
+        <h3 class="font-heading font-bold text-[clamp(23px,3vw,30px)] max-[410px]:text-[clamp(20px,6.4vw,24px)] leading-[1.1] text-white m-0 [overflow-wrap:break-word]" set:html={getCourseName(course.id, course.name)}>
+        </h3>
+      </div>
+    </div>
+    
+    <!-- Actions -->
+    <div class="p-3 grid gap-2">
+      {hasWhatsapp ? (
+        <a 
+          href={course.whatsapp}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="min-h-[52px] flex items-center gap-3 px-3.5 py-2.5 rounded-xl no-underline font-bold text-[16px] bg-[color-mix(in_srgb,var(--color-brand-whatsapp)_18%,var(--color-surface-btn-mix))] border border-[color-mix(in_srgb,var(--color-brand-whatsapp)_45%,var(--color-surface-btn-border))] text-brand-whatsapp-text hover:brightness-118 transition-all"
+        >
+          <WhatsAppIcon />
+          <span class="flex-1">{t.whatsapp}</span>
+          <b class="text-[18px] font-normal">↗</b>
+        </a>
+      ) : course.type === 'bachelor' ? (
+        <div 
+          class="min-h-[52px] flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-[15px] bg-surface-disabled/50 border border-base-300/40 text-secondary/50 cursor-not-allowed select-none"
+          aria-disabled="true"
+        >
+          <WhatsAppIcon class="w-5 h-5 flex-shrink-0 opacity-40" />
+          <span class="flex-1 text-secondary/60">{t.whatsapp}</span>
+          <span class="text-[11px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-md bg-base-300/40 text-secondary/70">
+            {t.unavailable}
+          </span>
+        </div>
+      ) : null}
+      {hasTelegram && (
+        <a 
+          href={course.telegram}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="min-h-[52px] flex items-center gap-3 px-3.5 py-2.5 rounded-xl no-underline font-bold text-[16px] bg-[color-mix(in_srgb,var(--color-brand-telegram)_18%,var(--color-surface-btn-mix))] border border-[color-mix(in_srgb,var(--color-brand-telegram)_45%,var(--color-surface-btn-border))] text-brand-telegram-text hover:brightness-118 transition-all"
+        >
+          <TelegramIcon />
+          <span class="flex-1">{t.telegram}</span>
+          <b class="text-[18px] font-normal">↗</b>
+        </a>
+      )}
+      <a 
+        href={course.wiki}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="min-h-[52px] flex items-center gap-3 px-3.5 py-2.5 rounded-xl no-underline font-bold text-[16px] bg-surface-btn border border-base-300 text-text-button hover:brightness-118 transition-all"
+      >
+        <WikiIcon />
+        <span class="flex-1">{t.wiki}</span>
+        <b class="text-[18px] font-normal">↗</b>
+      </a>
+    </div>
+  </div>
+</article>

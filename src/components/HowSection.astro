@@ -1,0 +1,78 @@
+---
+import WhatsAppIcon from "./icons/WhatsApp.astro";
+import TelegramIcon from "./icons/Telegram.astro";
+
+interface Props {
+    title: string;
+    waText: string;
+    tgText: string;
+    scrollInvitationText: string;
+}
+
+const { title, waText, tgText, scrollInvitationText } = Astro.props;
+---
+
+<section
+    id="how"
+    class="how max-w-[1120px] mx-auto px-5 pt-[55px] pb-[40px] max-md:pt-[45px] max-md:pb-[32px] border-t border-b border-base-300"
+>
+    <h2
+        id="how-title"
+        class="text-center font-heading text-[clamp(27px,4vw,38px)] font-bold mb-[35px]"
+    >
+        {title}
+    </h2>
+    <div class="how-grid grid grid-cols-1 md:grid-cols-2 gap-[18px]">
+        <!-- WhatsApp Card -->
+        <article
+            class="bg-gradient-to-br from-surface-card-start to-surface-card border border-base-300 rounded-[18px] p-6 max-md:p-5 flex flex-col gap-3.5"
+        >
+            <div class="flex items-center gap-3.5">
+                <div
+                    class="service wa w-[46px] h-[46px] flex-shrink-0 grid place-items-center bg-brand-whatsapp text-white rounded-[13px]"
+                >
+                    <WhatsAppIcon class="w-6 h-6" />
+                </div>
+                <h3 class="font-heading text-[22px] font-bold text-white m-0">
+                    WhatsApp
+                </h3>
+            </div>
+            <p
+                class="text-text-dim font-medium text-[16px] md:text-[18px] leading-[1.55] m-0"
+            >
+                {waText}
+            </p>
+        </article>
+
+        <!-- Telegram Card -->
+        <article
+            class="bg-gradient-to-br from-surface-card-start to-surface-card border border-base-300 rounded-[18px] p-6 max-md:p-5 flex flex-col gap-3.5"
+        >
+            <div class="flex items-center gap-3.5">
+                <div
+                    class="service tg w-[46px] h-[46px] flex-shrink-0 grid place-items-center bg-brand-telegram text-white rounded-[13px]"
+                >
+                    <TelegramIcon class="w-6 h-6" />
+                </div>
+                <h3 class="font-heading text-[22px] font-bold text-white m-0">
+                    Telegram
+                </h3>
+            </div>
+            <p
+                class="text-text-dim font-medium text-[16px] md:text-[18px] leading-[1.55] m-0"
+            >
+                {tgText}
+            </p>
+        </article>
+    </div>
+    <div
+        class="flex font-bold justify-center items-center text-center text-[18px] md:text-[20px] pt-[40px] max-md:pt-[32px]"
+    >
+        <a
+            href="#courses"
+            class="text-text-dim hover:text-white underline underline-offset-4 decoration-text-dim/60 hover:decoration-white transition-colors cursor-pointer"
+        >
+            {scrollInvitationText}
+        </a>
+    </div>
+</section>

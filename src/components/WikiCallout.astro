@@ -1,0 +1,54 @@
+---
+interface Props {
+    notOnly: string;
+    title: string;
+    text: string;
+    cta: string;
+}
+
+const { notOnly, title, text, cta } = Astro.props;
+---
+
+<section
+    class="wiki-callout max-w-[1120px] mx-auto px-5 py-[55px] max-md:py-[45px]"
+>
+    <div
+        class="grid grid-cols-[auto_1fr] max-md:grid-cols-1 md:grid-cols-[auto_1fr_auto] items-center gap-[22px] bg-surface-light text-text-dark rounded-[24px] p-[30px] max-md:p-[22px]"
+    >
+        <div
+            class="book w-[62px] h-[62px] flex-shrink-0 grid place-items-center bg-neutral-950 rounded-[17px] max-[410px]:hidden"
+        >
+            <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                class="w-[30px] h-[30px] fill-none stroke-surface-light stroke-[1.8]"
+            >
+                <path
+                    d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14Zm0 0A2.5 2.5 0 0 0 6.5 22H20v-5H6.5A2.5 2.5 0 0 0 4 19.5Z"
+                ></path>
+            </svg>
+        </div>
+        <div class="content">
+            <span
+                class="text-[13px] font-extrabold uppercase tracking-[0.15em] block mb-1.5 text-text-dark/75"
+                >{notOnly}</span
+            >
+            <h2
+                class="font-heading text-[clamp(25px,4vw,36px)] font-bold my-1 tracking-[-0.03em] leading-tight text-text-dark"
+            >
+                {title}
+            </h2>
+            <p
+                class="text-[16px] md:text-[18px] text-text-dark-muted max-w-[650px] font-medium m-0"
+            >
+                {text}
+            </p>
+        </div>
+        <a
+            href="https://sapienzastudents.net"
+            class="bg-neutral-950 text-surface-light no-underline font-bold text-[18px] px-[17px] py-[13px] rounded-xl whitespace-nowrap text-center max-md:col-span-full hover:bg-neutral-900 transition-colors"
+        >
+            {cta}
+        </a>
+    </div>
+</section>
