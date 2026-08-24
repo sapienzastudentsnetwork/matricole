@@ -7,9 +7,16 @@ interface Props {
     waText: string;
     tgText: string;
     scrollInvitationText: string;
+    mastersDegreeReminderText: string;
 }
 
-const { title, waText, tgText, scrollInvitationText } = Astro.props;
+const {
+    title,
+    waText,
+    tgText,
+    scrollInvitationText,
+    mastersDegreeReminderText,
+} = Astro.props;
 ---
 
 <section
@@ -68,11 +75,14 @@ const { title, waText, tgText, scrollInvitationText } = Astro.props;
     <div
         class="flex font-bold justify-center items-center text-center text-[18px] md:text-[20px] pt-[40px] max-md:pt-[32px]"
     >
-        <a
-            href="#courses"
-            class="text-text-dim hover:text-white underline underline-offset-4 decoration-text-dim/60 hover:decoration-white transition-colors cursor-pointer"
-        >
-            {scrollInvitationText}
-        </a>
+        <div>
+            <a
+                href="#courses"
+                class="text-text-dim hover:text-white underline underline-offset-4 decoration-text-dim/60 hover:decoration-white transition-colors cursor-pointer"
+            >
+                {scrollInvitationText}
+            </a>
+            <p class="text-sm text-text-dim/70">{mastersDegreeReminderText}</p>
+        </div>
     </div>
 </section>
