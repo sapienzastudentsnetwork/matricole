@@ -30,7 +30,8 @@ jobs:
       - name: Enable Corepack & Install
         run: |
           corepack enable
-          yarn install
+          yarn set version berry 
+          yarn install 
 
       - name: Verify Sharp
         run: yarn why sharp
