@@ -3,8 +3,8 @@ export default {
   it: {
     skip: "Vai ai corsi",
     academicYear: "Anno accademico 2026/2027",
-    title: "Il tuo corso.<br><em>La tua community.</em>",
-    lead: "Benvenutə!<br>Scegli il tuo corso per entrare nei gruppi delle matricole e trovare subito colleghə, materiali e informazioni utili.",
+    title: 'Il tuo corso.<br><em>La <span class="italic">tua</span> community.</em>',
+lead: "Benvenutə!<br>Scegli il tuo corso per entrare nei gruppi delle matricole e trovare subito colleghə, materiali e informazioni utili.",
     choose: "Dimmi di più!",
     howTitle: "Due spazi, due modi di aiutarsi",
     waText: "La chat del tuo anno accademico: per conoscere colleghi e colleghe che seguono le tue stesse lezioni, confrontarti e restare in contatto.",
@@ -30,7 +30,7 @@ export default {
   en: {
     skip: "Go to degree programmes",
     academicYear: "Academic year 2026/2027",
-    title: "Your degree.<br><em>Your community.</em>",
+    title: 'Your degree.<br><em><span class="italic">Your</span> community.</em>',
     lead: "Welcome!<br>Choose your degree programme to join the freshmen groups and quickly find classmates, study materials and useful information.",
     choose: "Tell me more!",
     howTitle: "Two spaces, two ways to help each other",
