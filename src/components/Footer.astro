@@ -6,9 +6,11 @@ interface Props {
     text: string;
     goUp?: string;
     copyrightNotice: string;
+    viewsLabel: string;
 }
 
-const { text, goUp = "Vai su", copyrightNotice } = Astro.props;
+const { text, goUp = "Vai su", copyrightNotice, viewsLabel } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
 <footer
@@ -65,5 +67,16 @@ const { text, goUp = "Vai su", copyrightNotice } = Astro.props;
         <div class="text-s font-semibold text-text-dim/80 mt-0.5">
             <span>{copyrightNotice}</span>
         </div>
+
+        <!-- Privacy-friendly page view counter; hidden if unavailable -->
+        <div
+            id="page-view-counter"
+            class="text-xs font-medium text-text-dim/55"
+            hidden
+        >
+            <span id="page-view-count"></span> <span>{viewsLabel}</span>
+        </div>
     </div>
 </footer>
+
+<script defer src={`${base}/page-view-counter.js`}></script>
