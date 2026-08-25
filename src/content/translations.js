@@ -25,7 +25,7 @@ lead: "Benvenutə!<br>Scegli il tuo corso per entrare nei gruppi delle matricole
     wiki: "Consulta la wiki",
     goUp: "Vai su",
     unavailable: "Non disponibile",
-    copyrightNotice: "dal 2021", views: "visualizzazioni"
+    copyrightNotice: "dal 2021"
   },
   en: {
     skip: "Go to degree programmes",
@@ -52,6 +52,6 @@ lead: "Benvenutə!<br>Scegli il tuo corso per entrare nei gruppi delle matricole
     wiki: "Browse the wiki",
     goUp: "Back to top",
     unavailable: "Not available",
-    copyrightNotice: "since 2021", views: "views"
+    copyrightNotice: "since 2021"
   },
 };

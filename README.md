@@ -17,7 +17,7 @@ Questa pagina offre un accesso immediato ai canali e ai contenuti piu utili all'
 - interfaccia leggera e accessibile;
 - contenuti disponibili in italiano e inglese;
 - collegamenti centralizzati ai gruppi e alle pagine della wiki;
-- statistiche aggregate e contatore delle visualizzazioni tramite GoatCounter.
+- statistiche aggregate tramite GoatCounter.
 
 ## Tecnologie
 
