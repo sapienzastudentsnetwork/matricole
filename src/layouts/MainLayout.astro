@@ -9,8 +9,8 @@ interface Props {
 }
 
 const { language } = Astro.props;
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const itHref = `${base}/` || '/';
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const itHref = `${base}/` || "/";
 const enHref = `${base}/en`;
 ---
 
@@ -52,8 +52,7 @@ const enHref = `${base}/en`;
             id="goatcounter-script"
             data-goatcounter="https://matricole.goatcounter.com/count"
             async
-            src="https://gc.zgo.at/count.js"
-        ></script>
+            src="https://gc.zgo.at/count.js"></script>
 
         <title>
             {
@@ -66,35 +65,70 @@ const enHref = `${base}/en`;
         <script is:inline define:vars={{ base, itHref, enHref }}>
             (function () {
                 var path = window.location.pathname;
-                var normalizedPath = base && path.startsWith(base) ? path.slice(base.length) : path;
+                var normalizedPath =
+                    base && path.startsWith(base)
+                        ? path.slice(base.length)
+                        : path;
                 var isEn = normalizedPath.startsWith("/en");
                 var params = new URLSearchParams(window.location.search);
                 var langParam = params.get("lang");
-                if (langParam === "en" && !isEn) {
-                    try {
-                        localStorage.setItem("ssn-lang", "en");
-                    } catch (e) {}
+
+                // Determine target language: ?lang= param > cookie > browser preference
+                var target = langParam;
+                if (!target) {
+                    var match = document.cookie.match(
+                        /(?:^|;\s*)preferred-language=([^;]+)/,
+                    );
+                    if (match) {
+                        target = match[1];
+                    } else {
+                        target = (navigator.language || "en")
+                            .toLowerCase()
+                            .startsWith("it")
+                            ? "it"
+                            : "en";
+                    }
+                }
+
+                // Persist preference (shared across all subdomains)
+                var cookieDomain = ".sapienzastudents.net";
+                document.cookie =
+                    "preferred-language=" +
+                    target +
+                    ";path=/;max-age=86400;domain=" +
+                    cookieDomain +
+                    ";SameSite=Lax";
+
+                // Redirect if needed
+                if (target === "en" && !isEn) {
                     window.location.replace(enHref);
                     return;
                 }
-                if (langParam === "it" && isEn) {
-                    try {
-                        localStorage.setItem("ssn-lang", "it");
-                    } catch (e) {}
+                if (target === "it" && isEn) {
                     window.location.replace(itHref);
                     return;
                 }
-                try {
-                    if (isEn) {
-                        localStorage.setItem("ssn-lang", "en");
-                    } else {
-                        localStorage.setItem("ssn-lang", "it");
-                    }
-                } catch (e) {}
             })();
         </script>
     </head>
     <body class="min-w-[300px] bg-base-100 text-base-content font-sans">
+        <!-- Loading overlay shown until language redirect resolves -->
+        <div
+            id="lang-loader"
+            class="fixed inset-0 z-[100] grid place-items-center bg-base-100"
+        >
+            <span class="loading loading-dots loading-lg text-primary"></span>
+        </div>
+        <script is:inline>
+            (function () {
+                var loader = document.getElementById("lang-loader");
+                if (loader) {
+                    window.addEventListener("DOMContentLoaded", function () {
+                        loader.remove();
+                    });
+                }
+            })();
+        </script>
         <!-- Skip link for accessibility -->
         <a
             href="#courses"
