@@ -89,11 +89,8 @@ const enHref = `${base}/en`;
                     return;
                 }
 
-                // Manually opening /en is an explicit English choice
+                // Manually opening /en shows English but doesn't persist preference
                 if (isEn) {
-                    try {
-                        localStorage.setItem("preferred-language", "en");
-                    } catch (e) {}
                     return;
                 }
 

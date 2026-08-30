@@ -47,7 +47,7 @@ yarn dev
 
 ### dentro un development container 
 La repository fornisce un piccolo template per un [devcontainer](https://containers.dev/) utilizzabile tramite cli, VSCode, Zed Editor e IDE JetBrains. 
-dentro il container: 
+Dentro il container: 
 ```bash 
 # Abilita Corepack 
 corepack enable 
