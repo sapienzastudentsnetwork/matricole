@@ -73,32 +73,44 @@ const enHref = `${base}/en`;
                 var params = new URLSearchParams(window.location.search);
                 var langParam = params.get("lang");
 
-                // Determine target language: ?lang= param > localStorage > browser preference
-                var target = langParam;
-                if (!target) {
-                    target = localStorage.getItem("preferred-language");
-                    if (!target) {
-                        target = (navigator.language || "en")
-                            .toLowerCase()
-                            .startsWith("it")
-                            ? "it"
-                            : "en";
-                    }
-                }
-
-                // Persist preference
-                try {
-                    localStorage.setItem("preferred-language", target);
-                } catch (e) {}
-
-                // Redirect if needed
-                if (target === "en" && !isEn) {
+                // ?lang= param forces a specific language
+                if (langParam === "en" && !isEn) {
+                    try {
+                        localStorage.setItem("preferred-language", "en");
+                    } catch (e) {}
                     window.location.replace(enHref);
                     return;
                 }
-                if (target === "it" && isEn) {
+                if (langParam === "it" && isEn) {
+                    try {
+                        localStorage.setItem("preferred-language", "it");
+                    } catch (e) {}
                     window.location.replace(itHref);
                     return;
+                }
+
+                // Manually opening /en is an explicit English choice
+                if (isEn) {
+                    try {
+                        localStorage.setItem("preferred-language", "en");
+                    } catch (e) {}
+                    return;
+                }
+
+                // On / — apply stored preference or detect from browser
+                var target = localStorage.getItem("preferred-language");
+                if (!target) {
+                    target = (navigator.language || "en")
+                        .toLowerCase()
+                        .startsWith("it")
+                        ? "it"
+                        : "en";
+                }
+                try {
+                    localStorage.setItem("preferred-language", target);
+                } catch (e) {}
+                if (target === "en") {
+                    window.location.replace(enHref);
                 }
             })();
         </script>
