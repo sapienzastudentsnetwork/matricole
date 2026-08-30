@@ -33,6 +33,7 @@ Questa pagina offre un accesso immediato ai canali e ai contenuti piu utili all'
 
 ## Sviluppo locale
 
+### su sistema host 
 ```bash
 # Abilita Corepack
 corepack enable
@@ -42,6 +43,20 @@ yarn install
 
 # Avvia il server di sviluppo
 yarn dev
+```
+
+### dentro un development container 
+La repository fornisce un piccolo template per un [devcontainer](https://containers.dev/) utilizzabile tramite cli, VSCode, Zed Editor e IDE JetBrains. 
+dentro il container: 
+```bash 
+# Abilita Corepack 
+corepack enable 
+
+# Installa le dipendenze 
+yarn install 
+
+# Avvia il server di sviluppo collegandoti alla rete dell'host 
+yarn dev --host
 ```
 
 Il server di sviluppo viene esposto, di default, all'indirizzo `http://localhost:4321`.
@@ -54,6 +69,9 @@ yarn build
 
 # Visualizza in anteprima la build
 yarn preview
+
+# Visualizza in anteprima la build tramite devcontainer
+yarn preview --host 
 ```
 
 I file generati vengono salvati nella cartella `dist/`.
