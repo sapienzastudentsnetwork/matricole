@@ -73,15 +73,11 @@ const enHref = `${base}/en`;
                 var params = new URLSearchParams(window.location.search);
                 var langParam = params.get("lang");
 
-                // Determine target language: ?lang= param > cookie > browser preference
+                // Determine target language: ?lang= param > localStorage > browser preference
                 var target = langParam;
                 if (!target) {
-                    var match = document.cookie.match(
-                        /(?:^|;\s*)preferred-language=([^;]+)/,
-                    );
-                    if (match) {
-                        target = match[1];
-                    } else {
+                    target = localStorage.getItem("preferred-language");
+                    if (!target) {
                         target = (navigator.language || "en")
                             .toLowerCase()
                             .startsWith("it")
@@ -90,14 +86,10 @@ const enHref = `${base}/en`;
                     }
                 }
 
-                // Persist preference (shared across all subdomains)
-                var cookieDomain = ".sapienzastudents.net";
-                document.cookie =
-                    "preferred-language=" +
-                    target +
-                    ";path=/;max-age=86400;domain=" +
-                    cookieDomain +
-                    ";SameSite=Lax";
+                // Persist preference
+                try {
+                    localStorage.setItem("preferred-language", target);
+                } catch (e) {}
 
                 // Redirect if needed
                 if (target === "en" && !isEn) {

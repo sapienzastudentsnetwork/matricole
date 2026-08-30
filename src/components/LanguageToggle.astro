@@ -47,13 +47,9 @@ const enHref = `${base}/en`;
 <script is:inline>
     document.querySelectorAll(".lang a[data-lang]").forEach(function (a) {
         a.addEventListener("click", function () {
-            var cookieDomain = ".sapienzastudents.net";
-            document.cookie =
-                "preferred-language=" +
-                a.dataset.lang +
-                ";path=/;max-age=86400;domain=" +
-                cookieDomain +
-                ";SameSite=Lax";
+            try {
+                localStorage.setItem("preferred-language", a.dataset.lang);
+            } catch (e) {}
         });
     });
 </script>
