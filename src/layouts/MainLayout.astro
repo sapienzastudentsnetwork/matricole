@@ -75,16 +75,10 @@ const enHref = `${base}/en`;
 
                 // ?lang= param forces a specific language
                 if (langParam === "en" && !isEn) {
-                    try {
-                        localStorage.setItem("preferred-language", "en");
-                    } catch (e) {}
                     window.location.replace(enHref);
                     return;
                 }
                 if (langParam === "it" && isEn) {
-                    try {
-                        localStorage.setItem("preferred-language", "it");
-                    } catch (e) {}
                     window.location.replace(itHref);
                     return;
                 }
@@ -103,9 +97,6 @@ const enHref = `${base}/en`;
                         ? "it"
                         : "en";
                 }
-                try {
-                    localStorage.setItem("preferred-language", target);
-                } catch (e) {}
                 if (target === "en") {
                     window.location.replace(enHref);
                 }
