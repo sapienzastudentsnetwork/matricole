@@ -134,25 +134,22 @@ const enHref = `${base}/en`;
             class="topbar max-w-[1180px] mx-auto px-5 py-4.5 flex justify-between items-center"
         >
             <a
-                class="brand flex items-center gap-2.5 no-underline text-base-content"
+                class="brand flex items-center gap-3 no-underline text-base-content"
                 href="https://sapienzastudents.net"
                 aria-label="Sapienza Students Network"
             >
                 <Image
                     src={ssnLogo}
                     alt=""
-                    width={52}
-                    height={52}
+                    width={60}
+                    height={60}
                     densities={[1, 2]}
-                    class="object-contain"
+                    class="h-[52px] w-auto object-contain sm:h-[60px]"
                 />
-                <span class="ml-2 flex flex-col leading-[1.05] font-heading">
-                    <strong class="text-[18px]">Sapienza Students</strong>
-                    <small
-                        class="mt-2 text-[13px] text-secondary font-medium uppercase tracking-[0.18em]"
-                        >Network</small
-                    >
-                </span>
+                <strong
+                    class="whitespace-nowrap font-heading text-[15px] sm:text-[19px] font-semibold tracking-[-0.015em]"
+                    >Sapienza Students Network</strong
+                >
             </a>
             <div class="lang">
                 <LanguageToggle language={language} />
