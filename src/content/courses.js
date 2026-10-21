@@ -12,7 +12,7 @@ export const COURSES = [
       en: "Applied Computer Science and Artificial Intelligence",
     },
     crest: "AI",
-    whatsapp: "https://chat.whatsapp.com/BXYYe3zWIwD4iyJlte54Hw",
+    whatsapp: "https://acsaiwf.sapienzastudents.net",
     telegram: "https://telegram.me/SapienzaACSAI",
     wiki: "https://sapienzastudents.net/acsai/",
   },
